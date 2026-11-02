@@ -1,32 +1,119 @@
-# JaanchLo Seed Corpus — Sources & Generation Method
+Suraksha AI Dataset – Sources and Generation Method
 
-## What this is
-`seed_corpus.jsonl` is the Day-1 hand-built seed set (28 labeled examples) that anchors the taxonomy and SREM rubric. It is the calibration seed, NOT the training set. Day 2 expands it to ~3-5k via templated + synthetic augmentation across languages, tones, and channels, holding out a golden test set.
+1. Purpose
 
-## Schema (one JSON object per line)
-- id: stable string id
-- category: one of the 8 taxonomy IDs or "benign"
-- lang: en | hi | hinglish
-- channel: sms | whatsapp | voice | video | ivr | app | instagram | telegram | marketplace | email
-- text: the message or transcribed call snippet
-- signals: list of SREM signal codes present (ground-truth labels for signal extractors)
-- label: 1 = scam, 0 = benign
-- note: annotator note / provenance
+The Suraksha AI dataset contains examples used to develop, test, and evaluate the project's scam and digital safety detection modules.
 
-## Provenance of patterns (all from public reporting, paraphrased; no real victim PII)
-- Digital arrest mechanics, isolation script, "refundable verification deposit": NITI Aayog "Digital Arrest: The Modern Day Cyber Scam" (2025); Frontline (Feb 2026); Supreme Court observations (2025-26).
-- Courier/FedEx "parcel contains drugs" -> digital arrest bridge: BBC (May 2026), CyberPeace, Indian Express (Bengaluru cases), scamdekho.
-- Electricity/PAN/bank phishing verbatim patterns and leetspeak: Economic Times, Truecaller, RTI Wiki (PAN-update 2026), ScamScan.
-- UPI receive-QR / collect-request / return-money variants: RBI and I4C consumer advisories.
-- Investment deepfake reels (Ambani/Tata/Sitharaman), "tax to withdraw": PIB Fact Check, RBI, Economic Times.
-- YouTube-like / VIP prepaid task flow: KhelJa (Jun 2026) and I4C task-scam advisories.
-- Loan-app harassment and morphed-photo extortion: I4C / RBI digital-lending guidance.
-- Family emergency / voice clone / army-officer OLX QR: I4C advisories, reported cases.
+It includes examples of suspicious messages, phishing attempts, online fraud, fake offers, and genuine messages.
 
-## Honesty notes
-- All example texts are paraphrased composites, not copied victim data.
-- Hindi/Hinglish coverage is deliberately thin in the seed (1 hi, 10 hinglish) and is a Day-2 expansion priority; v0 ships EN + HI.
-- One signal used in examples (content.morphed_media_threat) is a loan_app-specific extension of E5; fold into the rubric's E5 table in the next rubric revision.
+The initial dataset is used for testing and calibration. It should not be treated as a complete training dataset.
 
-## Verdict quick-map (from srem_rubric.md)
-0-29 Safe (green) · 30-59 Be Careful (amber) · 60-100 Danger (red); knockouts K1-K5 force Danger; guards G1-G3 protect the benign class.
+2. Dataset Structure
+
+Each dataset example should contain the following information:
+
+id: Unique example ID.
+
+category: Scam category or benign.
+
+lang: Language used, such as English, Hindi, or Hinglish.
+
+channel: Source type, such as SMS, WhatsApp, email, or social media.
+
+text: Message or extracted text.
+
+signals: Suspicious patterns identified by the detection engine.
+
+label: 1 for scam and 0 for benign.
+
+note: Short explanation of the example.
+
+3. Scam Categories
+
+The dataset can cover the following categories:
+
+Digital arrest and impersonation scams.
+
+Banking and KYC phishing.
+
+UPI and payment fraud.
+
+Fake job and recruitment offers.
+
+Investment and cryptocurrency scams.
+
+Courier and parcel scams.
+
+Loan app and financial harassment.
+
+Fake customer support and account recovery scams.
+
+Suspicious links and phishing websites.
+
+Genuine messages and normal conversations.
+
+4. Data Sources
+
+Dataset examples can be developed using patterns reported in:
+
+Government cybercrime awareness materials.
+
+Indian Cyber Crime Coordination Centre (I4C) advisories.
+
+Reserve Bank of India (RBI) consumer awareness materials.
+
+PIB Fact Check reports.
+
+Public cybersecurity research.
+
+Publicly available phishing and scam datasets.
+
+Open-source scam detection projects, following their licenses.
+
+Examples should be paraphrased or created as synthetic messages. Do not include real victims' names, phone numbers, bank details, or other personal information.
+
+5. Dataset Generation Method
+
+The dataset can be developed in stages:
+
+Stage 1: Initial examples
+
+Prepare a small set of manually written scam and genuine examples.
+
+Assign categories and labels.
+
+Check whether the examples match the intended detection rules.
+
+Stage 2: Dataset expansion
+
+Add more examples using carefully written templates.
+
+Include different languages and writing styles.
+
+Cover SMS, WhatsApp, email, and social media messages.
+
+Include both scam and genuine examples.
+
+Stage 3: Testing dataset
+
+Keep separate examples for testing.
+
+Avoid using the same examples in both development and final evaluation.
+
+Check detection results against the expected labels.
+
+6. Dataset Quality Rules
+
+Include both scam and benign examples.
+
+Avoid duplicate messages.
+
+Use correct labels and categories.
+
+Include English, Hindi, and Hinglish examples where supported.
+
+Protect personal information.
+
+Test new examples before adding them to the main dataset.
+
+Monitor false-danger predictions on genuine messages.
