@@ -1,58 +1,153 @@
-# JaanchLo ROADMAP
+🛡️ SURAKSHA AI – PROJECT ROADMAP
 
-**Mission:** A free, open-source scam shield for Indian elders and their families. Paste, forward, or describe anything suspicious and get a plain verdict in your own language, why it is suspicious, and exactly what to do next.
+Mission: To develop an AI-powered digital safety platform that helps users identify suspicious messages, fake news, phishing links, deepfake images, audio, and manipulated videos. The goal is to make online safety easier through simple detection results and useful recommendations.
 
-**North star:** an elder in Bengaluru, mid "digital arrest" call, opens JaanchLo on a cheap Android phone, answers four questions in Hindi, sees DANGER in red, hangs up, and calls 1930. Everything below serves that moment.
+Vision: A user can upload a suspicious message, image, audio, video, or URL to Suraksha AI and receive an understandable analysis with possible risk indicators and safety suggestions.
 
-## Guiding constraints (non-negotiable)
-1. Open: dataset (CC-BY-4.0), model (Apache-2.0), engine/app (AGPL-3.0) are public. At least one essential open component is the Sentient grant qualifier; we ship three.
-2. Private by design: no accounts, no storage of user submissions, self-hostable, on-device as the v1 target.
-3. Elder-first: three-tier verdicts (Safe / Be Careful / Danger), plain language, EN + HI at v0, 1930 one tap away.
-4. Honest metrics: every claim traces to the golden test set. False-danger rate is a first-class metric; a shield that cries wolf gets uninstalled.
-5. Derived from production: verdict methodology adapts Veriscore's IREM into SREM. Regnor opens the engine, not the business.
+Guiding Principles
 
-## Phases
+User-Friendly: Simple interface that anyone can understand and use.
 
-### Phase 0 · Foundations [DONE 5 Jul 2026]
-Taxonomy (8 India-specific scam families + benign class), SREM rubric v0.1 (5 evaluations, weighted signals, knockouts K1-K5, guards G1-G3), seed corpus (28 labeled EN/HI/Hinglish examples), provenance doc.
+Digital Safety: Help users recognize online scams and suspicious content.
 
-### Phase 1 · Dataset v0
-Expand seed to 3,000+ labeled examples via templated + LLM augmentation across language (EN/HI/Hinglish + regional stubs), channel, tone, and amounts. Hold out a golden test set (~250) that never touches training. Publish to HuggingFace with a dataset card.
-**Exit:** dataset public on HF; schema-valid; leakage-checked; distribution report published.
+Multiple Detection Options: Support text, images, audio, videos, URLs, and QR codes.
 
-### Phase 2 · Engine core
-Canonical InputEvent schema with per-channel adapters (text, screenshot OCR, audio transcript, checklist). Deterministic signal extractors (regex/keyword/heuristic) + LLM evaluation per SREM dimension + composite scoring + verdict + plain-language explanations in EN/HI. FastAPI service with /check/text, /check/image, /check/audio, /checklist.
-**Exit:** engine passes unit + fixture tests; golden-set eval runs end to end from CLI.
+Privacy: Avoid unnecessary collection or storage of user-uploaded content.
 
-### Phase 3 · Live-call checklist + evaluation hardening
-"Am I being scammed right now?" guided flow (pure rules, works offline, instant). Calibrate weights against golden set; tune false-danger on benign controls.
-**Exit:** acceptance metrics met (see Success metrics); eval table published.
+Transparency: Explain detection results instead of showing only a risk score.
 
-### Phase 4 · Fine-tune (conditional ship)
-LoRA fine-tune of a small open model (Qwen2.5-7B or Llama-3.x-8B class) for signal classification + rationale. Quantize. Ships only if it beats the prompted baseline on the golden set; otherwise ship baseline and log the fine-tune as ongoing work.
-**Exit:** model card with honest benchmark table on HF (or documented deferral).
+Continuous Improvement: Improve detection methods through testing and feedback.
 
-### Phase 5 · App (PWA)
-Mobile-first PWA: four flows (check message, live-call checklist, check voice note, share-to-family), verdict UI with reasons, HI/EN toggle, 1930 button everywhere, zero login, zero submission storage.
-**Exit:** deployed at a public URL; smoke, accessibility, and performance tests green on a 360px viewport.
+Development Phases
 
-### Phase 6 · Ship + grant evidence
-Public repo (org account, licenses, honest README with limitations), CI running tests + eval on push, 2-3 min demo video, Drive sync of all artifacts, Sentient application drafted against the live form with every evidence link.
-**Exit:** grant-evidence checklist 100% complete.
+Phase 0 · Project Planning and Research [COMPLETED]
 
-## Post-v0 (not in this build)
-WhatsApp bot (Meta API), on-device Android (quantized, llama.cpp/MediaPipe), regional languages (TA/TE/BN/MR full support), voice-first IVR line, deepfake/voice-clone detection module, community report-a-scam loop feeding the dataset, distribution partnerships (senior-citizen orgs, RWAs, banks' customer-education teams).
+Identify common online scams and cybersecurity threats.
 
-## Success metrics (v0 acceptance)
-| Metric | Target |
-|---|---|
-| Detection at Danger, digital_arrest + courier_parcel (golden) | ≥ 90% |
-| Overall scam recall at Danger or Be Careful (golden) | ≥ 85% |
-| False-danger rate on benign controls | ≤ 8% |
-| Text-flow verdict latency, p95 | < 10 s |
-| Checklist flow | works fully offline, < 1 s |
-| Full flow usable in Hindi | yes |
-| Runs in browser on a low-end Android (360px) | yes |
+Study fake news, phishing, deepfakes, and voice-cloning attacks.
 
-## Working agreement
-Build and test in the Hyperagent sandbox (code must run to be tested). Google Drive folder "JaanchLo" is the synced source of truth for documents, data snapshots, and evidence; the git repo becomes canonical for code at Phase 6. If any phase slips, slip the schedule, never the honesty of the artifacts.
+Define the project objectives and requirements.
+
+Select suitable technologies and development tools.
+
+Design the initial system architecture.
+
+Phase 1 · Frontend Development
+
+Develop the Suraksha AI web application.
+
+Create a simple and responsive user interface.
+
+Add separate sections for text, image, audio, video, URL, and QR analysis.
+
+Design the AI digital safety assistant interface.
+
+Display analysis results in an understandable format.
+
+Expected Outcome: A working frontend with all major detection sections.
+
+Phase 2 · Backend Development
+
+Set up the Node.js and Express.js backend.
+
+Create APIs for different detection modules.
+
+Connect the frontend with backend services.
+
+Implement file upload and input validation.
+
+Handle errors and unsupported file formats.
+
+Expected Outcome: A functional backend that processes user inputs.
+
+Phase 3 · AI-Based Detection Modules
+
+Implement suspicious text and scam message detection.
+
+Develop fake news analysis.
+
+Integrate image manipulation and deepfake analysis.
+
+Implement audio analysis and voice-clone detection.
+
+Develop video frame analysis.
+
+Implement URL and phishing detection.
+
+Add QR code scanning and link analysis.
+
+Expected Outcome: Working detection modules with appropriate analysis methods.
+
+Phase 4 · Risk Analysis and AI Assistant
+
+Generate detection results for submitted content.
+
+Classify suspicious content using appropriate risk levels.
+
+Display risk scores where supported.
+
+Explain suspicious indicators.
+
+Provide safety recommendations.
+
+Integrate the digital safety assistant for cybersecurity guidance.
+
+Expected Outcome: An application that provides understandable analysis and useful safety suggestions.
+
+Phase 5 · Integration and Testing
+
+Connect all implemented modules.
+
+Test text, image, audio, video, URL, and QR inputs.
+
+Verify frontend and backend communication.
+
+Test different file formats and input conditions.
+
+Identify and fix errors.
+
+Evaluate detection performance using test examples.
+
+Improve application responsiveness.
+
+Expected Outcome: An integrated application with tested detection workflows.
+
+Phase 6 · Final Deployment and Documentation
+
+Prepare the final project documentation.
+
+Upload the source code to GitHub.
+
+Add the project README and screenshots.
+
+Prepare the project presentation.
+
+Test the application before the final demonstration.
+
+Deploy the application if hosting is available.
+
+Prepare the final project demonstration.
+
+Expected Outcome: A completed, documented, and demonstrable Suraksha AI project.
+
+Future Enhancements
+
+The following features can be considered for future development:
+
+Real-time deepfake detection.
+
+Improved AI-generated voice detection.
+
+Support for Kannada, Hindi, and other Indian languages.
+
+Advanced multimodal AI models.
+
+Mobile application development.
+
+Real-time phishing website monitoring.
+
+Integration with trusted cybersecurity databases.
+
+Improved offline detection capabilities.
+
+Continuous improvement using verified datasets.
